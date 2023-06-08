@@ -6,7 +6,7 @@ const Navbar = () => {
   return (
     
     <>
-        <div className="navbar shadow-md flex align-middle gap-6 text-xl p-2 text-gray-800 bg-green-100 sticky">
+        <div className="navbar shadow-md flex align-middle gap-6 text-xl p-2 text-gray-800 bg-green-100 fixed top-0 left-0 w-full z-50 mb-5">
             <div className="logo">
             <img className='w-24 flex align-middle' src="https://dcassetcdn.com/design_img/1200001/475470/475470_6320527_1200001_a4311f57_image.png" alt="" />
             </div>
