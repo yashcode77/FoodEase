@@ -1,6 +1,7 @@
 import React from 'react';
 import search from '../assets/images/search.png';
 import { useState } from 'react';
+const button = document.getElementById("button");
 
 const SearchBar = () => {
     const [searchText,setSearchText] = useState('');
@@ -11,8 +12,13 @@ const SearchBar = () => {
         placeholder="Search"
         className="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none "
         onChange={(e) => setSearchText(e.target.value)}
+        onKeyUp={function enter(e){
+          if (e.key === 'Enter') {
+          button.click(); // Simulate button click event
+        }}}
       />
       <button
+        id="button"
         type="button"
         className="bg-green-500 hover:bg-green-700 text-white px-3 py-2 rounded-r-md h-10"
       >

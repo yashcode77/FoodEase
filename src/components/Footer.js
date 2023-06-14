@@ -1,14 +1,24 @@
-import React from 'react'
+import React from "react";
+import ItemsContainer from "./ItemsContainer";
+import SocialIcons from "./SocialIcons";
+import { Icons } from "./Menus";
+
 
 const Footer = () => {
   return (
-    <div>
-      <div className="wrapper bg-black text-white h-14">
-        <h4>Footer</h4>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo, harum! Sunt perferendis quo aut impedit deserunt? Beatae illo consequuntur minima!</p>
+    <footer className="bg-gray-900 text-white mt-12">
+   
+      <ItemsContainer />
+      <div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10
+      text-center pt-2 text-gray-400 text-sm pb-8"
+      >
+        <span>© 2023 FoodEase. All rights reserved.</span>
+        <span>Terms · Privacy Policy</span>
+        <SocialIcons Icons={Icons} />
       </div>
-    </div>
-  )
-}
+    </footer>
+  );
+};
 
-export default Footer
+export default Footer;

@@ -1,4 +1,5 @@
 import { shimmer_card_unit, shimmer_menu_card_unit } from "../constants";
+import { ShimmerSimpleGallery } from "react-shimmer-effects";
 
 // Shimmer card to display with animation
 const CardShimmer = () => {
@@ -54,11 +55,16 @@ export const MenuShimmer = () => {
 
 const Shimmer = () => {
   return (
-    <div className="shimmer-container">
+    <div className="shimmer-container mx-20">
       {/* create a new Array instance using Array() constructor and map through every element of array */}
       {Array(shimmer_card_unit).fill("").map((element, index) => {
         return <CardShimmer key={index} />;
       })}
+        <ShimmerSimpleGallery card imageHeight={200} col={4} caption />
+        <ShimmerSimpleGallery card imageHeight={200} col={4} caption />
+        <ShimmerSimpleGallery card imageHeight={200} col={4} caption />
+        <ShimmerSimpleGallery card imageHeight={200} col={4} caption />
+        <ShimmerSimpleGallery card imageHeight={200} col={4} caption />
     </div>
   );
 };

@@ -6,6 +6,9 @@ import { swiggy_api_URL } from "../constants";
 import SearchBar from './SearchBar';
 import search from '../assets/images/search.png';
 import restaurantList from '../restaurantList';
+import Shimmer from './Shimmer';
+
+const button = document.getElementById("search-button");
 
 
 
@@ -22,27 +25,30 @@ function filterData(searchText, restaurants) {
 
 const Body = () => {
   const [searchText, setSearchText] = useState("");
-  const [allRestaurants, setAllRestaurants] = useState([...restaurantList]);
-  const [filteredRestaurants, setFilteredRestaurants] = useState([...restaurantList]);
+  // const [allRestaurants, setAllRestaurants] = useState([...restaurantList]);
+  const [allRestaurants, setAllRestaurants] = useState([]);
+  // const [filteredRestaurants, setFilteredRestaurants] = useState([...restaurantList]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
   // use useEffect for one time call getRestaurants using empty dependency array
-  // useEffect(() => {
-  //   getRestaurants();
-  // }, []);
+  useEffect(() => {
+    getRestaurants();
+  }, []);
 
-  // async function getRestaurants() {
-  //   // handle the error using try... catch
-  //   try {
-  //     const data = await fetch(swiggy_api_URL);
-  //     const json = await data.json();
-  //     // updated state variable restaurants with Swiggy API data
-  //     setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
-  //     setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  async function getRestaurants() {
+    // handle the error using try... catch
+    try {
+      const data = await fetch(swiggy_api_URL);
+      const json = await data.json();
+      // updated state variable restaurants with Swiggy API data
+      setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+      setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+      console.log("fetched from api");
+    } catch (error) {
+      console.log(error);
+    }
+  }
   
   // use searchData function and set condition if data is empty show error message
   const searchData = (searchText, restaurants) => {
@@ -59,6 +65,8 @@ const Body = () => {
     }
   };
 
+  // if allRestaurants is empty don't render restaurants cards
+  if (!allRestaurants) return null;
 
   return (
     <div className='mt-32'>
@@ -70,8 +78,13 @@ const Body = () => {
         placeholder="Search"
         className="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none "
         onChange={(e) => setSearchText(e.target.value)}
+        onKeyUp={function enter(e){
+          if (e.key === 'Enter') {
+          button.click(); // Simulate button click event
+        }}}
       />
       <button
+        id="search-button"
         type="button"
         className="bg-green-500 hover:bg-green-700 text-white px-3 py-2 rounded-r-md h-10"
         onClick={() => {
@@ -84,11 +97,23 @@ const Body = () => {
       {errorMessage && <div className="error-container mx-4">{errorMessage}</div>}
       </div>
 
-     <div className="wrapper flex flex-wrap gap-6 justify-start mx-20 my-4">
+
+      {/* if restaurants data is not fetched then display Shimmer UI after the fetched data display restaurants cards */}
+      {allRestaurants?.length === 0 ? (
+        <Shimmer />
+      ) : ( <div className="wrapper flex flex-wrap gap-6 justify-start mx-20 my-4">
      {filteredRestaurants.map((restaurant) => {
-        return <DishCard key={restaurant.data.id} {...restaurant.data} />;
+        return (
+          <Link
+              to={"/restaurant/" + restaurant.data.id}
+              key={restaurant.data.id}
+            >
+        <DishCard key={restaurant.data.id} {...restaurant.data} />
+        </Link>
+        );
       })}
-     </div>
+     </div>)}
+    
     </div>
   )
 }

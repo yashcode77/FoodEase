@@ -16,6 +16,7 @@ function App() {
     <>
       <Navbar />
       <Outlet />
+      <Footer />
     </>
   );
 }
@@ -35,6 +36,10 @@ export const appRouter = createBrowserRouter([
       {
         path: "/offers",
         element: <Offers />,
+      },
+      {
+        path: "/help",
+        element: <Help />,
       },
       {
         path: "/contact",
