@@ -20,7 +20,7 @@ const Navbar = () => {
             </div>
             <div className='flex items-center   font-semibold cursor-pointer ml-auto'>
             <img src={cart} className='w-6 h-6'/>
-            <h3 className=' hover:text-green-500 pr-7 pl-1'>Cart</h3>
+            <h3 className=' hover:text-green-500 pr-7 pl-1'><Link to="/cart">Cart</Link></h3>
             <img src={profile} className='w-6 h-6'/>
             <h3 className=' pr-4 pl-1  hover:text-green-500'>Sign out</h3>
            </div>

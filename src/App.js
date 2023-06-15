@@ -9,9 +9,12 @@ import RestaurantMenu from "./components/RestaurantMenu";
 import Login from "./components/Login";
 import Error from "./components/Error";
 import ReactDOM from "react-dom";
+import React, {useState} from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom"; // for routing our page import createBrowserRouter and RouterProvider for providing router & Outlet for children component for nested routing
+import CartPage from "./components/CartPage";
 
 function App() {
+
   return (
     <>
       <Navbar />
@@ -23,6 +26,7 @@ function App() {
 
 // call createBrowserRouter for routing different pages
 export const appRouter = createBrowserRouter([
+  
   {
     path: "/", // show path for routing
     element: <App />, // show component for particular path
@@ -35,7 +39,7 @@ export const appRouter = createBrowserRouter([
       },
       {
         path: "/offers",
-        element: <Offers />,
+        element: <Offers text={"hello bkl"}/>,
       },
       {
         path: "/help",
@@ -44,6 +48,10 @@ export const appRouter = createBrowserRouter([
       {
         path: "/contact",
         element: <ContactUs />,
+      },
+      {
+        path: "/cart",
+        element: <CartPage />,
       },
       {
         path: "/restaurant/:resId",

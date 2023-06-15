@@ -22,6 +22,12 @@ const RestaurantMenu = () => {
     getRestaurantInfo(); // call getRestaurantInfo function so it fetch api data and set data in restaurant state variable
   }, []);
 
+  const [cartItems, setCartItems] = useState([]);
+
+  const addToCart = (item) => {
+    setCartItems((prevCartItems) => [...prevCartItems, item]);
+  };
+
   async function getRestaurantInfo() {
     try {
       const response = await fetch(swiggy_menu_api_URL + resId);
@@ -52,6 +58,8 @@ const RestaurantMenu = () => {
       console.log(error);
     }
   }
+
+  
 
   return !restaurant ? (
     <div>
@@ -103,7 +111,14 @@ const RestaurantMenu = () => {
               {item?.imageId && (
                 <img className="menu-item-img w-16 h-16 rounded-md" src={ITEM_IMG_CDN_URL + item?.imageId} alt={item?.name} />
               )}
-              <button className="add-btn bg-red-500 text-white px-4 py-2 rounded-full">ADD +</button>
+              <button className="add-btn bg-red-500 text-white px-2 py-2 rounded-full"
+              onClick={() => {
+                addToCart(item);
+                console.log({cartItems});
+                console.log("clicked")
+                }}>
+                ADD +
+              </button>
             </div>
           </div>
         ))}

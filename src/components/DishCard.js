@@ -25,7 +25,7 @@ const DishCard = ({ cloudinaryImageId,
     //     </div>
     //   </div>
     // </div>
-    <div className="bg-white rounded-lg shadow-lg p-4 w-80 border border-gray-200 transition hover:border-gray-500 cursor-pointer">
+    <div className="bg-white rounded-lg shadow-lg p-4 w-80 border border-gray-200 transition hover:border-gray-500 cursor-pointer transition-transform transform-gpu hover:scale-95 transition-duration-500">
       <img src={"https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/" + cloudinaryImageId} 
       alt="Restaurant" className="w-full h-48 object-cover rounded-lg mb-4" />
       <h2 className="text-lg font-semibold mb-3 h-10">{name}</h2>
