@@ -1,16 +1,14 @@
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import DishCard from './DishCard';
+import DishCard from "./DishCard";
 import { swiggy_api_URL } from "../constants";
-import SearchBar from './SearchBar';
-import search from '../assets/images/search.png';
-import restaurantList from '../restaurantList';
-import Shimmer from './Shimmer';
+import SearchBar from "./SearchBar";
+import search from "../assets/images/search.png";
+import restaurantList from "../restaurantList";
+import Shimmer from "./Shimmer";
 
 const button = document.getElementById("search-button");
-
-
 
 // Filter the restaurant data according input type
 function filterData(searchText, restaurants) {
@@ -19,9 +17,6 @@ function filterData(searchText, restaurants) {
   );
   return filterData;
 }
-
-
-
 
 const Body = () => {
   const [searchText, setSearchText] = useState("");
@@ -49,7 +44,7 @@ const Body = () => {
       console.log(error);
     }
   }
-  
+
   // use searchData function and set condition if data is empty show error message
   const searchData = (searchText, restaurants) => {
     if (searchText !== "") {
@@ -69,53 +64,55 @@ const Body = () => {
   if (!allRestaurants) return null;
 
   return (
-    <div className='mt-32'>
-    
+    <div className="mt-32">
       {/* <SearchBar /> */}
       <div className="searchBar flex items-center ml-20 mt-6">
-      <input
-        type="text"
-        placeholder="Search"
-        className="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none "
-        onChange={(e) => setSearchText(e.target.value)}
-        onKeyUp={function enter(e){
-          if (e.key === 'Enter') {
-          button.click(); // Simulate button click event
-        }}}
-      />
-      <button
-        id="search-button"
-        type="button"
-        className="bg-green-500 hover:bg-green-700 text-white px-3 py-2 rounded-r-md h-10"
-        onClick={() => {
-          // user click on button searchData function is called
-          searchData(searchText, allRestaurants);
-        }}
-      >
-        <img src={search} alt="" className='w-6 h-6' />
-      </button>
-      {errorMessage && <div className="error-container mx-4">{errorMessage}</div>}
+        <input
+          type="text"
+          placeholder="Search"
+          className="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none "
+          onChange={(e) => setSearchText(e.target.value)}
+          onKeyUp={function enter(e) {
+            if (e.key === "Enter") {
+              button.click(); // Simulate button click event
+            }
+          }}
+        />
+        <button
+          id="search-button"
+          type="button"
+          className="bg-green-500 hover:bg-green-700 text-white px-3 py-2 rounded-r-md h-10"
+          onClick={() => {
+            // user click on button searchData function is called
+            searchData(searchText, allRestaurants);
+          }}
+        >
+          <img src={search} alt="" className="w-6 h-6" />
+        </button>
+        {errorMessage && (
+          <div className="error-container mx-4">{errorMessage}</div>
+        )}
       </div>
-
 
       {/* if restaurants data is not fetched then display Shimmer UI after the fetched data display restaurants cards */}
       {allRestaurants?.length === 0 ? (
         <Shimmer />
-      ) : ( <div className="wrapper flex flex-wrap gap-6 justify-start mx-20 my-4">
-     {filteredRestaurants.map((restaurant) => {
-        return (
-          <Link
-              to={"/restaurant/" + restaurant.data.id}
-              key={restaurant.data.id}
-            >
-        <DishCard key={restaurant.data.id} {...restaurant.data} />
-        </Link>
-        );
-      })}
-     </div>)}
-    
+      ) : (
+        <div className="wrapper flex flex-wrap gap-6 justify-start mx-20 my-4">
+          {filteredRestaurants.map((restaurant) => {
+            return (
+              <Link
+                to={"/restaurant/" + restaurant.data.id}
+                key={restaurant.data.id}
+              >
+                <DishCard key={restaurant.data.id} {...restaurant.data} />
+              </Link>
+            );
+          })}
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Body
+export default Body;
